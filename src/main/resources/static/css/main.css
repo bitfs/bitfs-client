@@ -1,0 +1,251 @@
+.box{
+    width: 100%;
+    height: 100vh;
+    background-color: #EEEEEE;
+    display: flex;
+    flex-direction: column;
+}
+.box .top{
+    height:64px;
+    background-color: #1A1D21;
+}
+.box .containt{
+    width: 100%;
+    height: calc(100vh - 64px);
+    padding: 20px 15% 20px 15%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.box .containt .orderTopBox {
+    width: 100%;
+    background-color: #fff;
+    padding: 38px 43px 47px 43px;
+    box-sizing: border-box;
+}
+.box .containt .orderTopBox .messageBox {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px #ECECEC;
+    position: relative;
+}
+.box .containt .orderTopBox .messageBox .shop{
+    width: 131px;
+    height: 160px;
+    background-color: #fff;
+    position: absolute;
+    left: 27px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 2px 2px 5px #eee;
+}
+.box .containt .orderTopBox .messageBox .shop img{
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+}
+.box .containt .orderTopBox .messageBox .topMsg{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: #ECECEC;
+    padding: 16px 23px 0px 28px;
+    box-sizing: border-box;
+}
+.box .containt .orderTopBox .messageBox .topMsg .flexMsg{
+    display: flex;
+    align-items: flex-end;
+}
+.box .containt .orderTopBox .messageBox .topMsg .shopname{
+    margin-top: 28px;
+    margin-left: 178px;
+}
+.box .containt .orderTopBox .messageBox .topMsg .shopname h3{
+    font-size:20px;
+    font-weight:bold;
+    color:#000000;
+    margin-bottom: 7px;
+}
+.box .containt .orderTopBox .messageBox .topMsg .shopname p{
+    font-size:14px;
+    font-weight:400;
+    color:#666666;
+}
+.box .containt .orderTopBox .messageBox .topMsg .flexMsg .msgTitle{
+    font-size:20px;
+    font-weight:bold;
+    color:#333333;
+    margin-right: 29px;
+}
+.box .containt .orderTopBox .messageBox .topMsg .flexMsg .endTime{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+.box .containt .orderTopBox .messageBox .topMsg .flexMsg .numTitle{
+    font-size:14px;
+    font-weight:400;
+    color: #666;
+}
+.box .containt .orderTopBox .messageBox .bottomMsg{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 13px 0 40px 206px;
+    box-sizing: border-box;
+}
+.box .containt .orderTopBox .messageBox .bottomMsg .line{
+    display: flex;
+    align-items: center;
+    margin-top: 22px;
+}
+.box .containt .orderTopBox .messageBox .bottomMsg .line .selectAction{
+    width: 200px;
+    height: 35px;
+}
+.box .containt .orderTopBox .messageBox .bottomMsg .line .selectActionFa{
+    width: 200px;
+    height: 35px;
+    display: none;
+}
+.box .containt .orderTopBox .messageBox .bottomMsg .line .lineWidth{
+    width: 220px;
+    margin-right: 24px;
+}
+.box .containt .orderTopBox .way {
+    font-size:20px;
+    font-weight:bold;
+    color:#333333;
+    margin-top: 7px;
+    margin-bottom: 23px;
+}
+.box .containt .orderTopBox .wayContaint {
+    width:191px;
+    height:57px;
+    background:#555555;
+    border-radius:4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.box .containt .orderTopBox .wayContaint .select{
+    position: absolute;
+    right: -1px;
+    top: 0;
+}
+.box .containt .orderTopBox .wayContaint .logo {
+    width: 33px;
+    margin-right: 7px;
+    margin-left: 19px;
+}
+.box .containt .orderTopBox .wayContaint .text {
+    font-size:16px;
+    font-weight:400;
+    color:#fff;
+}
+.box .orderBottomBox{
+    background-color: #fff;
+    width: 100%;
+    padding: 18px 46px 18px 0;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.box .orderBottomBox .payMoney{
+    font-size:20px;
+    font-weight:bold;
+    color: #1A1D21;
+}
+.box .orderBottomBox .payMoney span{
+    color: #FCB054;
+}
+.box .btn-block{
+    width:224px;
+    height:56px;
+    border-radius:4px;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 21px;
+    background-color: #FCB054;
+}
+.box .bottom{
+    height: 139px;
+    background-color: #1A1D21;
+    display: flex;
+    flex-direction: column;
+}
+.box .containt .payIngBox{
+    width: 100%;
+    background-color: #fff;
+    padding: 46px;
+    box-sizing: border-box;
+}
+.box .containt .payIngBox .containtOrder{
+    padding: 37px 0 36px 41px;
+    box-sizing: border-box;
+    display: flex;
+    background-color: #F9F9F9;
+}
+.box .containt .payIngBox .containtOrder .msgCircle {
+    width:60px;
+    height:60px;
+    border-radius: 50%;
+    background:rgba(252,176,84,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 27px;
+}
+.box .containt .payIngBox .containtOrder .msgCircle .right{
+    width: 60px;
+}
+.box .containt .payIngBox .containtOrder .msgCircle .whiteCircle{
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+.box .containt .payIngBox .containtOrder .msgCircle .marCircle{
+    margin: 0 10px;
+}
+.box .containt .payIngBox .containtOrder .payIng{
+    font-size:20px;
+    font-weight:bold;
+    color:#FCB054;
+}
+.box .containt .payIngBox .containtOrder .paytext{
+    font-size:14px;
+    font-weight:400;
+    color:#666666
+}
+.box .containt .payIngBox .endBtn{
+    display: flex;
+    height:56px;
+    align-items: center;
+    margin-top: 34px;
+}
+.box .containt .payIngBox .endBtn .btn-block2{
+    width:224px;
+    height:56px;
+    color: #fff;
+    font-size: 16px;
+    background-color: #FCB054;
+    border-radius:4px;
+    margin-right: 82px;
+    color: #fff;
+}
+.box .containt .payIngBox .endBtn .btn-text{
+    font-size:16px;
+    font-weight:400;
+    color:rgba(252,176,84,1);
+    cursor: pointer;
+}
+#payIngBox2{
+    display: none;
+}
+#payIngBox1{
+    display: none;
+}

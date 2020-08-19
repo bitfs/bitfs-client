@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, width=device-width, height=device-height, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover,shrink-to-fit=no"
+    />
+    <title>BitFS-Pay-Demo</title>
+    <link href="./css/reset.css" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="./css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="box">
+      <div class="top"></div>
+      <div class="containt">
+        <div class="orderTopBox" id="orderTopBox">
+          <div class="messageBox">
+            <div class="topMsg">
+              <div class="flexMsg">
+                <span class="msgTitle">商品信息</span>
+<!--                <span class="numTitle">订单号：5dasdjjh113214</span>-->
+                <div class="endTime">
+<!--                  <span class="numTitle">2020/05/20 20:36:55</span>-->
+                </div>
+              </div>
+              <div class="shopname">
+                <h3>BitFS支付demo</h3>
+                <p>
+                    BitFS支付demo商品
+                </p>
+              </div>
+            </div>
+            <div class="bottomMsg">
+              <div class="line">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="numRadio"
+                    value="2"
+                    checked
+                    oninput="numRadioInput()"
+                  />
+                  <label class="form-check-label" for="numRadio"
+                    >数字货币计价</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="currencyRadio"
+                    value="1"
+                    oninput="coinRadioInput()"
+                  />
+                  <label class="form-check-label" for="currencyRadio"
+                    >法币计价</label
+                  >
+                </div>
+              </div>
+              <div class="line">
+                <input
+                  value="1"
+                  type="text"
+                  class="form-control lineWidth"
+                  id="num_str"
+                  oninput="numInput()"
+                />
+                <select
+                  class="selectAction"
+                  id="selectAction"
+                  onchange="numChange(this.options[this.options.selectedIndex].text)"
+                >
+                  <option value="USDT">USDT</option>
+                  <option value="ETH">ETH</option>
+                  <option value="BTC">BTC</option>
+                </select>
+                <select
+                  class="selectAction selectActionFa"
+                  id="selectActionFa"
+                  onchange="coinChange()"
+                >
+                  <option value="CNY">CNY</option>
+                  <option value="USD">USD</option>
+                  <option value="MYR">MYR</option>
+                </select>
+                <!-- <input
+                  value="USDT"
+                  type="text"
+                  class="form-control lineWidth"
+                  id="coin_str"
+                  oninput="coinInput()"
+                /> -->
+              </div>
+            </div>
+            <div class="shop">
+              <img src="./img/shoptext.png" />
+            </div>
+          </div>
+          <p class="way">支付方式</p>
+          <div class="wayContaint">
+            <img src="./img/logo.png" alt="" class="logo" />
+            <span class="text">BitFS支付</span>
+            <img src="./img/select.png" alt="" class="select" />
+          </div>
+        </div>
+        <div class="payIngBox" id="payIngBox1">
+          <div class="containtOrder">
+            <div class="msgCircle">
+              <div class="whiteCircle"></div>
+              <div class="whiteCircle marCircle"></div>
+              <div class="whiteCircle"></div>
+            </div>
+            <div>
+              <h3 class="payIng">订单支付中...</h3>
+              <p class="paytext">
+                请尽快完成支付，订单将在规定时间内自动取消，可能会影响您的购买
+              </p>
+            </div>
+          </div>
+          <div class="endBtn">
+            <span>
+              <button type="button" class="btn btn-warning btn-block2" onclick="nextIndex()">
+                返回首页
+              </button>
+            </span>
+            <!-- <span class="btn-text">查看订单</span> -->
+          </div>
+        </div>
+        <div class="payIngBox" id="payIngBox2">
+          <div class="containtOrder">
+            <div class="msgCircle">
+              <img src="./img/right.png" alt="" class="right" />
+            </div>
+            <div>
+              <h3 class="payIng">
+                订单已支付成功！已经为你安排了跑步最快的快递小哥为您配送
+              </h3>
+              <p class="paytext">
+                订单已支付成功，如有疑问可联系客服处理,感谢您的支持。
+              </p>
+            </div>
+          </div>
+          <div class="endBtn">
+            <span>
+              <button
+                type="button"
+                class="btn btn-warning btn-block2"
+                onclick="nextIndex()"
+              >
+                返回首页
+              </button>
+            </span>
+            <!-- <span class="btn-text">查看订单</span> -->
+          </div>
+        </div>
+        <div class="orderBottomBox" id="orderBottomBox">
+          <p class="payMoney">
+            应付金额：<span id="payNum1">1</span>
+            <span id="payNum2">USDT</span>
+          </p>
+          <p>
+            <button
+              type="submit"
+              class="btn btn-warning btn-block"
+              onclick="getPayway()"
+            >
+              去支付
+            </button>
+          </p>
+        </div>
+      </div>
+      <!-- <div class="bottom"></div> -->
+    </div>
+    <script
+      src="./js/jquery.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 商户id appkey 商户密钥 回调地址input 输入框
+      var homeUrl = window.location.protocol + "//" + window.location.host;
+      var timer = null
+      function queryOrderXun(orderid) {
+        $.ajax({
+          url: homeUrl + '/demo/queryOrder/'+orderid,
+          processData: false,
+          contentType: 'application/json;charset=utf-8',
+          dataType: 'json',
+          type: 'get'
+        })
+          .then(res => {
+            if (res.result == 100) {
+              clearTimeout(timer)
+              $('#payIngBox2').show(200)
+              $('#orderBottomBox').hide(200)
+              $('#payIngBox1').hide(200)
+              // 成功支付
+            } else if (res.result == 200) {
+              // 支付中
+              $('#orderTopBox').hide(200)
+              $('#orderBottomBox').hide(200)
+              $('#payIngBox1').show(200)
+            } else if (res.result == 300) {
+              // 取消
+              clearTimeout(timer)
+              $('#orderTopBox').show(200)
+              $('#orderBottomBox').show(200)
+              $('#payIngBox1').hide(200)
+              $('#payIngBox2').hide(200)
+            }
+          })
+          .catch(e => {
+            clearTimeout(timer)
+            // alert('超时请求')
+          })
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          queryOrderXun(orderid)
+        }, 3000)
+      }
+
+      function numInput(tx) {
+        var num = document.getElementById('num_str').value
+        document.getElementById('payNum1').innerHTML = num
+      }
+
+      function numChange(val) {
+        document.getElementById('payNum2').innerHTML = $('#selectAction').val()
+      }
+
+      function coinChange() {
+        document.getElementById('payNum2').innerHTML = $(
+          '#selectActionFa'
+        ).val()
+      }
+
+      function numRadioInput() {
+        let currencyType = $('#numRadio').prop('checked') ? 1 : 2
+        if (currencyType == 1) {
+          $('#selectAction').css('display', 'block')
+          $('#selectActionFa').css('display', 'none')
+          document.getElementById('payNum2').innerHTML = $(
+            '#selectAction'
+          ).val()
+        }
+      }
+
+      function coinRadioInput() {
+        let currencyType = $('#currencyRadio').prop('checked') ? 1 : 2
+        if (currencyType == 1) {
+          $('#selectAction').css('display', 'none')
+          $('#selectActionFa').css('display', 'block')
+          document.getElementById('payNum2').innerHTML = $(
+            '#selectActionFa'
+          ).val()
+        }
+      }
+      function nextIndex() {
+        clearTimeout(timer)
+        $('#orderTopBox').show(200)
+        $('#orderBottomBox').show(200)
+        $('#payIngBox1').hide(200)
+        $('#payIngBox2').hide(200)
+      }
+
+      function getPayway() {
+        let currencyType = $('#currencyRadio').prop('checked') ? 1 : 2
+        let numVal = $('#num_str').val()
+        let coinVal = $('#coin_str').val()
+        const paramsData1 = {
+          num: numVal,
+          coinName: $('#selectAction').val()
+        }
+        const paramsData2 = {
+          num: numVal,
+          coinName: $('#selectActionFa').val()
+        }
+        if (currencyType == 1) {
+          $.ajax({
+            url: homeUrl +'/demo/createOrderByCurrency',
+            data: JSON.stringify(paramsData2),
+            processData: false,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            type: 'POST'
+          })
+            .then(result => {
+              if (result.return_code == 'SUCCESS') {
+                queryOrderXun(result.result.orderId)
+                setTimeout(() => {
+                  window.open(result.result.payUrl)
+                }, 2000)
+              } else {
+                alert(result.msg)
+              }
+            })
+            .catch(e => {
+              // alert('超时请求')
+            })
+        } else if (currencyType == 2) {
+          $.ajax({
+            url: homeUrl + '/demo/createOrderByCoin',
+            data: JSON.stringify(paramsData1),
+            processData: false,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            type: 'POST'
+          })
+            .then(result => {
+              if (result.return_code == 'SUCCESS') {
+                queryOrderXun(result.result.orderId)
+                setTimeout(() => {
+                  window.open(result.result.payUrl)
+                }, 2000)
+              } else {
+                alert(result.msg)
+              }
+            })
+            .catch(e => {
+              // alert('超时请求')
+            })
+        }
+      }
+    </script>
+    <script
+      src="./js/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="./js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

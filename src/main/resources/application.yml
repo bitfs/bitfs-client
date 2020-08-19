@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: bitfs-client
+
+server:
+  port: 8080
+
+bitfs-client:
+  pay-config:
+    #请求的接口url
+    trade-url: https://gwapi.bitfs.com
+    #appkey
+    app-key: todo replace your app key
+    #商户密钥
+    secret-key: todo replace your secret key
+    #商户id
+    mch-key: todo replace your mch key
+    #结果回调地址,需公网可访问的地址才能回调
+    notice-url: todo replace your notice url
+
+

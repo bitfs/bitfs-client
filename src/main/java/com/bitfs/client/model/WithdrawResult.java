@@ -5,12 +5,13 @@ public class WithdrawResult {
     public WithdrawResult() {
     }
 
-    public WithdrawResult(String sign, String mch_id, String trade_type, String nonce_str, String customer_id) {
+    public WithdrawResult(String sign, String mch_id, String trade_type, String nonce_str, String customer_id, String transaction_id) {
         this.sign = sign;
         this.mch_id = mch_id;
         this.trade_type = trade_type;
         this.nonce_str = nonce_str;
         this.customer_id = customer_id;
+        this.transaction_id = transaction_id;
     }
 
     private String sign; //签名
@@ -22,6 +23,9 @@ public class WithdrawResult {
     private String nonce_str; //随机字符串
 
     private String customer_id; //用户id
+
+    private String transaction_id;//bitfs网关订单id
+
 
     public String getSign() {
         return sign;
@@ -61,5 +65,13 @@ public class WithdrawResult {
 
     public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
+    }
+
+    public String getTransaction_id() {
+        return transaction_id;
+    }
+
+    public void setTransaction_id(String transaction_id) {
+        this.transaction_id = transaction_id;
     }
 }

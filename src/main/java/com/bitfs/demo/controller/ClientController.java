@@ -6,7 +6,9 @@ import com.bitfs.client.model.*;
 import com.bitfs.client.request.*;
 import com.bitfs.client.SyncRequestClient;
 import com.bitfs.client.constants.PayConstant;
+import com.bitfs.client.utils.PaySign;
 import com.bitfs.config.PayConfigProperties;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +26,8 @@ public class ClientController {
 
     @Autowired
     private PayConfigProperties payInfoProperties;
+    @Autowired
+    private PaySign paySign;
 
     /**
      * 查询BITFS支持的法币
@@ -58,7 +64,7 @@ public class ClientController {
      * @return
      */
     @PostMapping("createOrderByCurrency")
-    public CommonResponse createOrderByCurrency(@RequestBody WebTestRequest request){
+    public CommonResponse createOrderByCurrency(@RequestBody WebTestRequest request) throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         CommonResponse response=new CommonResponse();
@@ -83,12 +89,21 @@ public class ClientController {
                 PayConstant.LOCAL,
                 System.currentTimeMillis()
         );
-
         CreateOrderResult result=syncRequestClient.createOrderByCurrency(orderRequest);
-
         String payUrl="";
         if (null!=result){
-            payUrl=result.getPay_url();
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("nonce_str",result.getNonceStr());
+            repoParameters.put("trade_type",result.getTrade_type());
+            repoParameters.put("pay_url",result.getPay_url());
+            repoParameters.put("transaction_id",result.getTransaction_id());
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (result.getSign().equals(sign)){
+                payUrl=result.getPay_url();
+            }else {
+                System.out.println("------------------签名不正确-------------------");
+            }
         }
         CreateOrderResponse orderResponse=new CreateOrderResponse();
         orderResponse.setOrderId(orderId);
@@ -102,7 +117,7 @@ public class ClientController {
      * @return
      */
     @PostMapping("createOrderByCoin")
-    public CommonResponse createOrderByCoin(@RequestBody WebTestRequest request){
+    public CommonResponse createOrderByCoin(@RequestBody WebTestRequest request) throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         CommonResponse response=new CommonResponse();
@@ -130,11 +145,20 @@ public class ClientController {
         );
 
         CreateOrderResult result=syncRequestClient.createOrderByCoin(orderRequest);
-
-//        System.out.println(result.getPay_url());
         String payUrl="";
         if (null!=result){
-            payUrl=result.getPay_url();
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("nonce_str",result.getNonceStr());
+            repoParameters.put("trade_type",result.getTrade_type());
+            repoParameters.put("pay_url",result.getPay_url());
+            repoParameters.put("transaction_id",result.getTransaction_id());
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (result.getSign().equals(sign)){
+                payUrl=result.getPay_url();
+            }else {
+                System.out.println("------------------签名不正确-------------------");
+            }
         }
         CreateOrderResponse orderResponse=new CreateOrderResponse();
         orderResponse.setOrderId(orderId);
@@ -148,7 +172,7 @@ public class ClientController {
      * @return
      */
     @PostMapping("withdrawByCurrency")
-    public WithdrawResult withdrawByCurrency(){
+    public WithdrawResult withdrawByCurrency() throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         SyncRequestClient syncRequestClient = SyncRequestClient.create(
@@ -168,6 +192,18 @@ public class ClientController {
                 ip
         );
         WithdrawResult result=syncRequestClient.withdrawByCurrency(request);
+        if (result!=null){
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("customer_id",result.getCustomer_id());
+            repoParameters.put("nonce_str",result.getNonce_str());
+            repoParameters.put("trade_type",result.getTrade_type());
+            repoParameters.put("transaction_id",result.getTransaction_id());
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (!result.getSign().equals(sign)){
+                System.out.println("------------------签名不正确-------------------");
+            }
+        }
         return result;
     }
 
@@ -176,7 +212,7 @@ public class ClientController {
      * @return
      */
     @PostMapping("withdrawByCoin")
-    public WithdrawResult withdrawByCoin(){
+    public WithdrawResult withdrawByCoin() throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         SyncRequestClient syncRequestClient = SyncRequestClient.create(
@@ -196,6 +232,18 @@ public class ClientController {
                 ip
         );
         WithdrawResult result=syncRequestClient.withdrawByCoin(request);
+        if (result!=null){
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("customer_id",result.getCustomer_id());
+            repoParameters.put("nonce_str",result.getNonce_str());
+            repoParameters.put("trade_type",result.getTrade_type());
+            repoParameters.put("transaction_id",result.getTransaction_id());
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (!result.getSign().equals(sign)){
+                System.out.println("------------------签名不正确-------------------");
+            }
+        }
         return result;
     }
 
@@ -206,7 +254,7 @@ public class ClientController {
      * @return
      */
     @GetMapping("queryAccount")
-    public Account queryAccount(){
+    public Account queryAccount() throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         SyncRequestClient syncRequestClient = SyncRequestClient.create(
@@ -216,6 +264,17 @@ public class ClientController {
                 PayConstant.ACCOUN_TYPE
         );
         Account result=syncRequestClient.getAccount(request);
+        if (result!=null){
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("nonce_str",result.getNonce_str());
+            repoParameters.put("balance",result.getBalance());
+            repoParameters.put("freeze",result.getFreeze());
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (!result.getSign().equals(sign)){
+                System.out.println("------------------签名不正确-------------------");
+            }
+        }
         return result;
 
     }
@@ -225,7 +284,7 @@ public class ClientController {
      * @return
      */
     @GetMapping("queryOrder/{orderId}")
-    public CommonResponse queryOrder(@PathVariable String orderId){
+    public CommonResponse queryOrder(@PathVariable String orderId) throws Exception {
         RequestOptions options = new RequestOptions();
         options.setUrl(payInfoProperties.getTradeUrl());
         CommonResponse response=new CommonResponse();
@@ -239,7 +298,31 @@ public class ClientController {
         QueryOrderResult result=syncRequestClient.queryOrder(request);
         String trade_state="";
         if (null!=result){
-            trade_state=result.getTrade_state();
+            SortedMap<Object,Object> repoParameters=new TreeMap<Object,Object>();
+            repoParameters.put("nonce_str",result.getNonce_str());
+            if (StringUtils.isNotBlank(result.getCustomer_id())){
+                repoParameters.put("customer_id",result.getCustomer_id());
+            }
+            repoParameters.put("transaction_id",result.getTransaction_id());
+            repoParameters.put("out_trade_no",result.getOut_trade_no());
+            repoParameters.put("mch_id",result.getMch_id());
+            repoParameters.put("total_amount",result.getTotal_amount());
+            repoParameters.put("trade_type",result.getTrade_type());
+            repoParameters.put("fee_type",result.getFee_type());
+            repoParameters.put("trade_state",result.getTrade_state());
+            repoParameters.put("tick_price",result.getTick_price());
+            repoParameters.put("order_fee",result.getOrder_fee());
+            repoParameters.put("trade_state_desc",result.getTrade_state_desc());
+            if (StringUtils.isNotBlank(result.getAttach())){
+                repoParameters.put("attach",result.getAttach());
+            }
+            String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),repoParameters);
+            if (result.getSign().equals(sign)){
+                trade_state=result.getTrade_state();
+            }else {
+                System.out.println("------------------签名不正确-------------------");
+            }
+
         }
         response.setResult(trade_state);
         return response;
@@ -247,8 +330,10 @@ public class ClientController {
     }
 
 
+
+
     @PostMapping("noticeReturn")
-    public CommonResponse noticeReturn(@RequestBody NoticeRequest request){
+    public CommonResponse noticeReturn(@RequestBody NoticeRequest request) throws Exception {
         CommonResponse response=new CommonResponse();
         System.out.println("fee_type: "+request.getFee_type());
         System.out.println("total_amount: "+request.getTotal_amount());
@@ -265,6 +350,32 @@ public class ClientController {
         System.out.println("mch_id: "+request.getMch_id());
         System.out.println("attach: "+request.getAttach());
         System.out.println("customer_id: "+request.getCustomer_id());
+
+        SortedMap<Object, Object> parameters=new TreeMap<Object, Object>();
+        parameters.put("mch_id",request.getMch_id());
+        parameters.put("nonce_str",request.getNonce_str());
+        if (StringUtils.isNotBlank(request.getCustomer_id())){
+            parameters.put("customer_id",request.getCustomer_id());
+        }
+        if (StringUtils.isNotBlank(request.getAttach())){
+            parameters.put("attach",request.getAttach());
+        }
+        parameters.put("fee_type",request.getFee_type());
+        parameters.put("total_amount",request.getTotal_amount());
+        parameters.put("out_trade_no",request.getOut_trade_no());
+        parameters.put("transaction_id",request.getTransaction_id());
+        parameters.put("time_end",request.getTime_end());
+        parameters.put("trade_type",request.getTrade_type());
+        parameters.put("trade_state",request.getTrade_state());
+        parameters.put("tick_price",request.getTick_price());
+        parameters.put("order_fee",request.getOrder_fee());
+        parameters.put("trade_state_desc",request.getTrade_state_desc());
+        String sign= paySign.createPaySign(payInfoProperties.getSecretKey(),parameters);
+        if (request.getSign().equals(sign)){
+            System.out.println("------------------签名正确-------------------");
+        }else {
+            System.out.println("------------------签名不正确-------------------");
+        }
         return response;
     }
 

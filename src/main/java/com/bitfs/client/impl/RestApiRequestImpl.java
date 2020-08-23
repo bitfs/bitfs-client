@@ -168,6 +168,7 @@ class RestApiRequestImpl {
       result.setPay_url(data.getString("pay_url"));
       result.setSign(data.getString("sign"));
       result.setNonceStr(data.getString("nonce_str"));
+      result.setTransaction_id(data.getString("transaction_id"));
       return result;
     });
     return request;
@@ -213,6 +214,7 @@ class RestApiRequestImpl {
       result.setPay_url(data.getString("pay_url"));
       result.setSign(data.getString("sign"));
       result.setNonceStr(data.getString("nonce_str"));
+      result.setTransaction_id(data.getString("transaction_id"));
       return result;
     });
     return request;
@@ -284,6 +286,7 @@ class RestApiRequestImpl {
       result.setCustomer_id(data.getString("customer_id"));
       result.setSign(data.getString("sign"));
       result.setNonce_str(data.getString("nonce_str"));
+      result.setTransaction_id(data.getString("transaction_id"));
       return result;
     });
     return request;
@@ -333,6 +336,7 @@ class RestApiRequestImpl {
       result.setCustomer_id(data.getString("customer_id"));
       result.setSign(data.getString("sign"));
       result.setNonce_str(data.getString("nonce_str"));
+      result.setTransaction_id(data.getString("transaction_id"));
       return result;
     });
     return request;
